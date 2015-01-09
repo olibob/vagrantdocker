@@ -36,6 +36,8 @@ If you need to force provisionning
 vagrant up --provision
 ```
 
+You can now access docker as root within the VM or over the network on port 2375.
+
 - SSH into the VM and get the VM's IP address. You can now log out of the VM.
 - Open a new shell on your Mac
 - Set the DOCKER_HOST environment variable
