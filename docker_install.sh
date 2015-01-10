@@ -1,8 +1,5 @@
 #!/usr/bin/bash
 
-# Update system
-yum -y update
-
 # Install latest docker binary
 cd /tmp
 wget -c http://get.docker.io/builds/Linux/x86_64/docker-latest.tgz
