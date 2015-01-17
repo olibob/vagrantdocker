@@ -17,7 +17,7 @@ config.vm.synced_folder "/Users", "/Users"
 Self explanatory.
 
 ```
-config.vm.network "public_network"
+config.vm.network "private_network", ip: "192.168.60.100"
 vb.cpus = 4
 vb.memory = 4096
 config.vm.hostname = "dockerbox"
@@ -25,15 +25,18 @@ config.vm.hostname = "dockerbox"
 
 ### Usage
 
-```
-vagrant up
-```
+Chose a provisioning method for the first `vagrant up`
 
-If you need to force provisionning
-
+#### Shell script
 
 ```
-vagrant up --provision
+vagrant up --provision --provision-with shell
+```
+
+#### Ansible
+
+```
+vagrant up --provision --provision-with ansible
 ```
 
 You can now access docker as root within the VM or over the network on port 2375.

@@ -1,0 +1,31 @@
+---
+- hosts: all
+  sudo: yes
+  sudo_user: root
+  tasks:
+    - name: Download latest docker binary archive
+      get_url:
+        url: "http://get.docker.io/builds/Linux/x86_64/docker-latest.tgz"
+        dest: "/tmp"
+    - name: Unarchive docker binary archive
+      unarchive:
+        src: "/tmp/docker-latest.tgz"
+        dest: "/"
+        copy: no
+    - name: Copy docker.socket file
+      copy:
+        src: "docker.socket"
+        dest: "/etc/systemd/system"
+    - name: Copy docker.service file
+      copy:
+        src: "docker.service"
+        dest: "/etc/systemd/system"
+    - name: Make sure docker service is enabled and started
+      service:
+        name: "docker.service"
+        enabled: "yes"
+        state: "started"
+    - name: Remove docker archive
+      file:
+        path: "/tmp/docker-latest.tgz"
+        state: "absent"
