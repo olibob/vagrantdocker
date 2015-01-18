@@ -1,18 +1,20 @@
-## Centos 7 based Vagrant VM for docker for Mac OS X
+## Centos 7 based Vagrant VM for docker
 
 Quick Vagrant setup to get the latest docker installed.
 
 ### Things you might want to change/modify !
 
-**Users folder mapping**
+#### Users folder mapping
 
-This is needed to be able to map local folder(s) to Volume(s) in docker and has no use otherwise.
+This is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker.
 
 ```
 config.vm.synced_folder "/Users", "/Users"
 ```
 
-**Basic VM configurations**
+If you're working on linux or windows, adapt it to suit your setup.
+
+#### Basic VM configurations
 
 Self explanatory.
 
@@ -23,9 +25,10 @@ vb.memory = 4096
 config.vm.hostname = "dockerbox"
 ```
 
-### Usage
+### Launch a new VM
 
-Chose a provisioning method for the first `vagrant up`
+Chose a provisioning method for the first `vagrant up`.
+If you don't specify a provisioning method, both will run, which is just a waste of your time. Alternatively, you can edit the Vagrant file and comment out the provisioning method you don't wish to use.
 
 #### Shell script
 
@@ -39,16 +42,18 @@ vagrant up --provision --provision-with shell
 vagrant up --provision --provision-with ansible
 ```
 
+### Usage
+
 You can now access docker as root within the VM or over the network on port 2375.
 
-- SSH into the VM and get the VM's IP address. You can now log out of the VM.
-- Open a new shell on your Mac
-- Set the DOCKER_HOST environment variable
+- SSH into the VM, switch to root, and start using docker.
+- Or get the VM's IP address. You can now log out of the VM.
+    - Open a new shell on your Mac
+    - Set the DOCKER_HOST environment variable
 
-```
-export DOCKER_HOST="tcp://<the VM's IP address>:2375"
-
-```
+    ```
+    export DOCKER_HOST="tcp://<the VM's IP address>:2375"
+    ```
 
 - Test docker connection
 
