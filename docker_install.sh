@@ -10,7 +10,6 @@ tar xzf /tmp/docker-latest.tgz -C /
 
 SERVICE_DIR="/etc/systemd/system"
 cp /vagrant/docker.service $SERVICE_DIR
-chmod +x $SERVICE_DIR/docker.service
 cp /vagrant/docker.socket $SERVICE_DIR
 systemctl enable docker.service
 systemctl start docker.service
