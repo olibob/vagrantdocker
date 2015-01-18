@@ -7,19 +7,24 @@
       get_url:
         url: "http://get.docker.io/builds/Linux/x86_64/docker-latest.tgz"
         dest: "/tmp"
-    - name: Unarchive docker binary archive
+    - name: Extract docker binary archive
       unarchive:
         src: "/tmp/docker-latest.tgz"
         dest: "/"
         copy: no
-    - name: Copy docker.socket file
+    - name: Copy service files
       copy:
-        src: "docker.socket"
-        dest: "/etc/systemd/system"
-    - name: Copy docker.service file
-      copy:
-        src: "docker.service"
-        dest: "/etc/systemd/system"
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      with_items:
+        - {
+          src: "docker.socket",
+          dest: "/etc/systemd/system"
+        }
+        - {
+          src: "docker.service",
+          dest: "/etc/systemd/system"
+        }
     - name: Make sure docker service is enabled and started
       service:
         name: "docker.service"
