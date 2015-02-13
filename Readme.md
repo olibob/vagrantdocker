@@ -6,7 +6,7 @@ Quick Vagrant setup to get the latest docker installed.
 
 #### Users folder mapping
 
-This is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker.
+This is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker. (Under Windows 7, this would map C:\Users to /Users)
 
 ```
 config.vm.synced_folder "/Users", "/Users"
