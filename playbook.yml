@@ -5,12 +5,12 @@
   tasks:
     - name: Download latest docker binary archive
       get_url:
-        url: "http://get.docker.io/builds/Linux/x86_64/docker-latest.tgz"
-        dest: "/tmp"
+        url: http://get.docker.io/builds/Linux/x86_64/docker-latest.tgz
+        dest: /tmp
     - name: Extract docker binary archive
       unarchive:
-        src: "/tmp/docker-latest.tgz"
-        dest: "/"
+        src: /tmp/docker-latest.tgz
+        dest: /
         copy: no
     - name: Copy service files
       copy:
@@ -18,19 +18,32 @@
         dest: "{{ item.dest }}"
       with_items:
         - {
-          src: "docker.socket",
-          dest: "/etc/systemd/system"
+          src: docker.socket,
+          dest: /etc/systemd/system
         }
         - {
-          src: "docker.service",
-          dest: "/etc/systemd/system"
+          src: docker.service,
+          dest: /etc/systemd/system
         }
     - name: Make sure docker service is enabled and started
       service:
-        name: "docker.service"
-        enabled: "yes"
-        state: "started"
+        name: docker.service
+        enabled: yes
+        state: started
     - name: Remove docker archive
       file:
-        path: "/tmp/docker-latest.tgz"
-        state: "absent"
+        path: /tmp/docker-latest.tgz
+        state: absent
+    - name: Add docker group
+      group:
+        name: docker
+        state: present
+    - name: Change socket file group to docker
+      file:
+        path: /var/run/docker.sock
+        group: docker
+    - name: Add docker group to vagrant user
+      user:
+        name: vagrant
+        append: yes
+        groups: docker
