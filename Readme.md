@@ -2,17 +2,20 @@
 
 Quick Vagrant setup to get the latest docker installed.
 
+All vagrant commands described here must be run in the folder where the VagrantFile is. Otherwise, check Vagrant's dock in order to understand its loading order.
+
 ### Things you might want to change/modify !
 
 #### Users folder mapping
 
-This is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker. (Under Windows 7, this would map C:\Users to /Users)
+Default path is MacOS X specific and needed to be able to map local folder(s) to Volume(s) in docker. (Under Windows 7, this would map C:\Users to /Users)
 
 ```
 config.vm.synced_folder "/Users", "/Users"
 ```
 
 If you're working on linux or windows, adapt it to suit your setup.
+If you just don't need to map any local folders in your VM, just comment it. 
 
 #### Basic VM configurations
 
@@ -27,7 +30,7 @@ config.vm.hostname = "dockerbox"
 
 ### Launch a new VM
 
-Chose a provisioning method for the first `vagrant up`.
+Choose a provisioning method for the first `vagrant up`.
 If you don't specify a provisioning method, both will run, which is just a waste of your time. Alternatively, you can edit the Vagrant file and comment out the provisioning method you don't wish to use.
 
 #### Shell script
@@ -44,11 +47,17 @@ vagrant up --provision --provision-with ansible
 
 ### Usage
 
-You can now access docker as root within the VM or over the network on port 2375.
+You can now access docker as vagrant user within the VM or over the network on port 2375.
 
-- SSH into the VM, switch to root, and start using docker.
-- Or get the VM's IP address. You can now log out of the VM.
-    - Open a new shell on your Mac
+- SSH into the VM and start using docker 
+
+  ```
+  vagrant ssh
+  ```
+
+  and start using docker.
+- Or if you want to use your host's docker client, get the VM's IP address. You can now log out of the VM.
+    - Open a new shell on your Host
     - Set the DOCKER_HOST environment variable
 
     ```
@@ -56,7 +65,6 @@ You can now access docker as root within the VM or over the network on port 2375
     ```
 
 - Test docker connection
-
 
 ```
 $ docker info
@@ -80,4 +88,3 @@ Total Memory: 3.704 GiB
 Name: dockerbox
 ID: AZ6C:XSUS:W2DV:ZPJ5:XQGZ:2CPG:MV5J:6BLF:WYZO:TBXH:6VCV:HBIF
 ```
-
