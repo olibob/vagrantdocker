@@ -13,3 +13,7 @@ cp /vagrant/docker.service $SERVICE_DIR
 cp /vagrant/docker.socket $SERVICE_DIR
 systemctl enable docker.service
 systemctl start docker.service
+
+groupadd docker
+chown root:docker /var/run/docker.sock
+usermod -a -G docker vagrant
