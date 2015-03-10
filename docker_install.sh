@@ -19,3 +19,9 @@ systemctl start docker.service
 groupadd docker
 chown root:docker /var/run/docker.sock
 usermod -a -G docker vagrant
+
+# Install docker compose
+# Specific to 1.1.0 TODO: change to latest!
+
+curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
