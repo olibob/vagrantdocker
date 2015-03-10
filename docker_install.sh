@@ -21,7 +21,12 @@ chown root:docker /var/run/docker.sock
 usermod -a -G docker vagrant
 
 # Install docker compose
-# Specific to 1.1.0 TODO: change to latest!
+# Specific to 1.1.0 TODO: change to latest! (2015-03-10)
 
 curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+
+# Install docker machine
+# Specific to 0.1.0 TODO: change to latest (2015-03-10)
+curl -L https://github.com/docker/machine/releases/download/v0.1.0/docker-machine_linux-amd64 > /usr/local/bin/docker-machine
+chmod +x /usr/local/bin/docker-machine
